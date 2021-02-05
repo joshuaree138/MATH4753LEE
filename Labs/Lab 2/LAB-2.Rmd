@@ -16,19 +16,101 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Task 1
 
+Obtain the working directory
 ```{r}
 getwd()
 ```
 ## Task 2
 
 Reading in the data and printing the first 6 lines
+
 ```{r}
 epagas = read.csv("EPAGAS.csv")
 head(epagas)
 ```
 
+## Task 3
 
+Make the object mpg
 
-# Task 3
+```{r}
+mpg = epagas$ï..MPG
+head(mpg)
+```
 
+Transform mpg to z
+```{r}
+z = (mpg - mean(mpg)) / sd(mpg)
+head(z)
+print(paste0("mean = ", mean(z)), quote = F)
+print(paste0("variance = ", var(z)), quote = F)
+print(paste0("standard deviation = ", sd(z)), quote = F)
+```
 
+Possible outliers for mpg
+
+```{r}
+po = mpg[abs(z) >= 2 & abs(z) <= 3]
+po
+```
+
+Outliers
+
+```{r}
+o = mpg[abs(z) >= 3]
+o
+```
+
+Dotplot
+
+```{r}
+library(lattice)
+mpgDataFCol = ifelse(abs(z) > 3, "red", 
+                     ifelse(abs(z) >= 2 & abs(z) <= 3, "blue", "black"))
+dotplot(mpg, col = mpgDataFCol, main = "Plot of mpg values", xlab = "Miles per Gallon")
+```
+
+## Task 4
+
+1) Make a boxplot of the mpg variable
+  a. Make the box black
+  b. Put a notch where the median goes
+  c. Put a title on the graph
+  d. Make the plot horizontal
+  
+```{r}
+boxplot(mpg, data = epagas, main = "Boxplot of MPG", col = "black", notch = T, horizontal = T)
+```
+
+2) Using Chebyshev's theorem predict the proportion of data within 2 standard deviation of the mean of the mpg data
+
+Chebyshev's theorem states: at least 
+
+$$ 1 - \frac{1}{k^2} $$
+
+of the data will fall within k standard deviation of the mean.
+
+When k = 2
+
+```{r}
+k = 2
+cheb = 1 - 1 / (k^2)
+cheb
+```
+
+3) Use R to calculate the exact proportion within 2 standard deviation of the mean
+
+```{r}
+sum(mpg > (mean(mpg)-(2 * sd(mpg))) & mpg < (mean(mpg)+(2 * sd(mpg)))) / length(mpg)
+```
+4) Does Chebyshev agree with the data?
+  Ans: Nope
+  
+5) Now use the empirical rule, what proportion of the data should be within 2 standard deviations of the mean?
+  Ans: The empirical rule states that 95% of the data should be within 2 standard deviations.
+
+6) How well does it correspond?
+  Ans: The value that we got is about 1% off from what the empirical rule states.
+  
+7) Is the Empirical rule valid in this case? Why?
+  Ans: The empirical rule is valid in this case as the distribution follows closely with the       bell-shapedd curve of a normal distribution.
