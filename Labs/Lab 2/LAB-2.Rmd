@@ -1,0 +1,29 @@
+---
+title: "LAB 2"
+author: "Joshua Lee"
+date: "2/3/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Task 1
+
+```{r}
+getwd()
+```
+# Task 2
+
+Reading in the data and printing the first 6 lines
+```{r}
+epagas = read.csv("EPAGAS.csv")
+head(epagas)
+```
+
+
+
+# Task 3
+
+
