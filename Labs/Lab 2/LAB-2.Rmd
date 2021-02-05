@@ -1,20 +1,25 @@
 ---
 title: "LAB 2"
 author: "Joshua Lee"
-date: "2/3/2021"
-output: html_document
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes 
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Task 1
+# Tasks
+
+## Task 1
 
 ```{r}
 getwd()
 ```
-# Task 2
+## Task 2
 
 Reading in the data and printing the first 6 lines
 ```{r}
